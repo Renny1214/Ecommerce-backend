@@ -65,20 +65,20 @@ public class UserService {
         return "\"user deactivated successfully\"";
     }
 
-    public String sendOTP(Object emailObject) throws IOException {
+    public String sendOTP(String emailObject) throws IOException {
         MailThread mailThread=new MailThread();
         final String emailKey="email";
-        final String otpFile="/otpMail.json";
+        final String otpFile="/otpMail.html";
         final String subject="OTP for account creation";
 
-        JSONObject jsonObject=new JSONObject(emailObject.toString());
+        JSONObject jsonObject=new JSONObject(emailObject);
         String email=jsonObject.getString(emailKey);
 
         String otp=new OTP().generateOTP();
         StringBuilder stringBuilder= ResourceManipulation.getResource(otpFile);
-        stringBuilder.append(otp);
+        String temp=stringBuilder.toString().replace("{}",otp);
 
-        mailThread.setSendingMail(email,subject,stringBuilder.toString());
+        mailThread.setSendingMail(email,subject,temp);
         Thread thread=new Thread(mailThread);
         thread.start();
 

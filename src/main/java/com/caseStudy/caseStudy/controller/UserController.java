@@ -11,20 +11,19 @@ import java.util.ArrayList;
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping("/api")
-
 public class UserController {
 
     @Autowired
     UserService userService;
 
     @PostMapping(path = "/user" , consumes="application/json")
-    public boolean signUp(@RequestBody users user)
-    {
+    public boolean signUp(@RequestBody users user) {
         user.setIsActive(1);
         System.out.println(user.toString());
 
         return userService.add(user);
     }
+
     @GetMapping(value = "/validateUser",produces = "application/json")
     public String validateUser(Principal principal)
     {
@@ -32,7 +31,7 @@ public class UserController {
     }
 
     @PostMapping(value = "/sendOTP", consumes = "application/json")
-    public String sendOTP(@RequestBody Object email){
+    public String sendOTP(@RequestBody String email){
         try{
             return userService.sendOTP(email);
         }
@@ -55,8 +54,7 @@ public class UserController {
     }
 
     @PostMapping(path="/deactivateUser")
-    public String deactivateUser(@RequestBody users user,Principal principal)
-    {
+    public String deactivateUser(@RequestBody users user,Principal principal) {
         return userService.deactivateUser(principal,user);
     }
 
