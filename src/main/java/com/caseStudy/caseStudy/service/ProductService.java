@@ -1,6 +1,7 @@
-package com.caseStudy.caseStudy.doa;
+package com.caseStudy.caseStudy.service;
 
 
+import com.caseStudy.caseStudy.doa.ProductRepository;
 import com.caseStudy.caseStudy.models.products;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -11,7 +12,7 @@ import java.util.Optional;
 import java.util.Set;
 
 @Component
-public class ProductRepositoryClass {
+public class ProductService {
 
     @Autowired
     ProductRepository productRepository;

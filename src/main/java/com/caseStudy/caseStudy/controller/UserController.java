@@ -1,8 +1,7 @@
 package com.caseStudy.caseStudy.controller;
 
-import com.caseStudy.caseStudy.doa.UserRepositoryClass;
-import com.caseStudy.caseStudy.models.products;
 import com.caseStudy.caseStudy.models.users;
+import com.caseStudy.caseStudy.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,7 +15,7 @@ import java.util.ArrayList;
 public class UserController {
 
     @Autowired
-    UserRepositoryClass userRepositoryClass;
+    UserService userService;
 
 
     public static Principal principal;
@@ -29,8 +28,8 @@ public class UserController {
         System.out.println(user.toString()
         );
         try{
-            userRepositoryClass.checkUser(user);
-            userRepositoryClass.add(user);
+            userService.checkUser(user);
+            userService.add(user);
             return true;
         }
         catch (Exception e){
@@ -51,21 +50,21 @@ public class UserController {
     @GetMapping(path="/showUser" , produces = "application/json")
     public ArrayList<users> showUsers()
     {
-        return userRepositoryClass.showUser();
+        return userService.showUser();
     }
 
 
     @PostMapping(path="/editUser")
     public String editUser(@RequestBody users user)
     {
-        return userRepositoryClass.editUser(principal,user);
+        return userService.editUser(principal,user);
     }
 
 
     @PostMapping(path="/deactivateUser")
     public String deactivateUser(@RequestBody users user)
     {
-        return userRepositoryClass.deactivateUser(principal,user);
+        return userService.deactivateUser(principal,user);
     }
 
 }

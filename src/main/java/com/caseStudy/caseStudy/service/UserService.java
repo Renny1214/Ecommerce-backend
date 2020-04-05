@@ -1,8 +1,11 @@
-package com.caseStudy.caseStudy.doa;
+package com.caseStudy.caseStudy.service;
 
+import com.caseStudy.caseStudy.doa.UserRepository;
 import com.caseStudy.caseStudy.models.products;
 import com.caseStudy.caseStudy.models.users;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import java.security.Principal;
@@ -10,14 +13,18 @@ import java.util.ArrayList;
 import java.util.Optional;
 
 @Component
-public class UserRepositoryClass {
+public class UserService {
 
     @Autowired
     UserRepository userRepository;
 
+    @Autowired
+    PasswordEncoder passwordEncoder;
+
 
     public void add(users user)
     {
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         userRepository.save(user);
     }
 

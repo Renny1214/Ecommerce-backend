@@ -1,21 +1,15 @@
 package com.caseStudy.caseStudy.service;
 
-import com.caseStudy.caseStudy.doa.CartRepository;
 import com.caseStudy.caseStudy.doa.HistoryRepository;
-import com.caseStudy.caseStudy.doa.ProductRepositoryClass;
-import com.caseStudy.caseStudy.doa.UserRepositoryClass;
 import com.caseStudy.caseStudy.models.Cart;
 import com.caseStudy.caseStudy.models.history;
 import com.caseStudy.caseStudy.models.products;
 import com.caseStudy.caseStudy.models.users;
-import org.hibernate.query.criteria.internal.expression.function.CurrentDateFunction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.security.Principal;
 import java.util.Date;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Optional;
 
@@ -23,7 +17,7 @@ import java.util.Optional;
 public class HistoryService {
 
     @Autowired
-    UserRepositoryClass userRepositoryClass;
+    UserService userService;
 
     @Autowired
     HistoryRepository historyRepository;
@@ -32,17 +26,17 @@ public class HistoryService {
     CartService cartService;
 
     @Autowired
-    ProductRepositoryClass productRepositoryClass;
+    ProductService productService;
 
     public ArrayList<history> getHistoryFromCurrentUser(Principal principal) {
-        Optional<users> user = userRepositoryClass.getByEmail(principal.getName());
+        Optional<users> user = userService.getByEmail(principal.getName());
         ArrayList<history> history = historyRepository.findAllByUser(user);
         return history;
     }
 
     public String addListToHistory(Principal principal) {
         ArrayList<Cart> cart = cartService.getEmail(principal);
-        Optional<users> user = userRepositoryClass.getByEmail((principal.getName()));
+        Optional<users> user = userService.getByEmail((principal.getName()));
         ArrayList<products> products = new ArrayList<>();
 
         for (int i = 0; i < cart.size(); i++) {
