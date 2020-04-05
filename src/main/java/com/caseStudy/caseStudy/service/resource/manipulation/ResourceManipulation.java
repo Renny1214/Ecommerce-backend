@@ -10,7 +10,7 @@ import java.io.InputStreamReader;
 public class ResourceManipulation {
 
     public static StringBuilder getResource(String fileName) throws IOException {
-        InputStream inputStream= Credentials.class.getResourceAsStream(fileName);
+        InputStream inputStream= ResourceManipulation.class.getResourceAsStream(fileName);
         BufferedReader bufferedReader=new BufferedReader(new InputStreamReader(inputStream));
         StringBuilder stringBuilder=new StringBuilder();
         String line;
