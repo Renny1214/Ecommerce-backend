@@ -1,13 +1,16 @@
 package com.caseStudy.caseStudy.service;
 
 import com.caseStudy.caseStudy.doa.UserRepository;
-import com.caseStudy.caseStudy.models.products;
 import com.caseStudy.caseStudy.models.users;
+import com.caseStudy.caseStudy.service.generations.OTP;
+import com.caseStudy.caseStudy.service.resource.manipulation.ResourceManipulation;
+import com.caseStudy.caseStudy.service.threads.MailThread;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
+import java.io.IOException;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.Optional;
@@ -21,11 +24,17 @@ public class UserService {
     @Autowired
     PasswordEncoder passwordEncoder;
 
-
-    public void add(users user)
+    public boolean add(users user)
     {
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-        userRepository.save(user);
+        if(!userRepository.findByEmail(user.getEmail()).isPresent()){
+            user.setPassword(passwordEncoder.encode(user.getPassword()));
+            userRepository.save(user);
+        }
+        else{
+            return false;
+        }
+
+        return true;
     }
 
     public ArrayList<users> showUser()
@@ -56,15 +65,23 @@ public class UserService {
         return "\"user deactivated successfully\"";
     }
 
-    public boolean checkUser(users user) throws Exception{
-        ArrayList<users> usersList=(ArrayList<users>) userRepository.findAll();
+    public String sendOTP(Object emailObject) throws IOException {
+        MailThread mailThread=new MailThread();
+        final String emailKey="email";
+        final String otpFile="/otpMail.json";
+        final String subject="OTP for account creation";
 
-        for(int i=0;i<usersList.size();i++){
-            if(usersList.get(i).getEmail().equals(user.getEmail())){
-                throw new Exception();
-            }
-        }
+        JSONObject jsonObject=new JSONObject(emailObject.toString());
+        String email=jsonObject.getString(emailKey);
 
-        return true;
+        String otp=new OTP().generateOTP();
+        StringBuilder stringBuilder= ResourceManipulation.getResource(otpFile);
+        stringBuilder.append(otp);
+
+        mailThread.setSendingMail(email,subject,stringBuilder.toString());
+        Thread thread=new Thread(mailThread);
+        thread.start();
+
+        return otp;
     }
 }

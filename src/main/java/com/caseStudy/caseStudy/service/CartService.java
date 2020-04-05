@@ -15,7 +15,7 @@ import java.util.Optional;
 @Service
 public class CartService {
     @Autowired
-    UserService userService;
+    UserService userRepositoryClass;
 
     @Autowired
     CartRepository cartRepository;
@@ -24,21 +24,21 @@ public class CartService {
     ProductService productService;
 
     public ArrayList<Cart> getCartFromCurrentUser(Principal principal) {
-        Optional<users> user = userService.getByEmail(principal.getName());
+        Optional<users> user = userRepositoryClass.getByEmail(principal.getName());
         ArrayList<Cart> cart = cartRepository.findAllByUser(user);
         return cart;
     }
 
     public ArrayList<Cart> getEmail(Principal principal) {
         String email = principal.getName();
-        Optional<users> user = userService.getByEmail(email);
+        Optional<users> user = userRepositoryClass.getByEmail(email);
         return cartRepository.findAllByUser(user);
     }
 
     public String addItemToCart(Principal principal, Long productId) {
 
         Optional<products> product = productService.getById(productId);
-        Optional<users> user = userService.getByEmail((principal.getName()));
+        Optional<users> user = userRepositoryClass.getByEmail((principal.getName()));
         ArrayList<Cart> cart = getCartFromCurrentUser(principal);
 
         for (int i = 0; i < cart.size(); i++) {
@@ -62,13 +62,13 @@ public class CartService {
     @Transactional
     public String deleteItemFromCart(Long id, Principal principal) {
         Optional<products> product = productService.getById(id);
-        Optional<users> user = userService.getByEmail(principal.getName());
+        Optional<users> user = userRepositoryClass.getByEmail(principal.getName());
         cartRepository.deleteByUserAndProducts(user, product);
         return "\"deletion completed\"";
     }
 
     public String incrementInCart(Long id, Principal principal) {
-        Optional<users> user = userService.getByEmail(principal.getName());
+        Optional<users> user = userRepositoryClass.getByEmail(principal.getName());
         Optional<products> product = productService.getById(id);
         Optional<Cart> cart = cartRepository.findByUserAndProducts(user, product);
         cart.get().setQuantity(cart.get().getQuantity() + 1);
@@ -76,7 +76,7 @@ public class CartService {
         return "\"increased quantity\"";
     }
     public String decrementInCart(Long id, Principal principal) {
-        Optional<users> user = userService.getByEmail(principal.getName());
+        Optional<users> user = userRepositoryClass.getByEmail(principal.getName());
         Optional<products> product = productService.getById(id);
         Optional<Cart> cart= cartRepository.findByUserAndProducts(user,product);
         cart.get().setQuantity(cart.get().getQuantity()-1);
