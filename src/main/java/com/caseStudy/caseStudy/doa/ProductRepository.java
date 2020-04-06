@@ -1,13 +1,10 @@
 package com.caseStudy.caseStudy.doa;
 
 import com.caseStudy.caseStudy.models.products;
-import com.sun.org.apache.xpath.internal.operations.Bool;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
-import java.util.Optional;
-
 
 @Repository
 public interface ProductRepository extends CrudRepository<products, Long> {

@@ -18,7 +18,6 @@ public class users {
     private String phone;
     private String address;
     private String password;
-    private boolean isSeller;
     private int isActive;
 
     public int getIsActive() {
@@ -75,12 +74,5 @@ public class users {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public boolean isSeller() {
-        return isSeller;
-    }
-    public void setSeller(boolean seller) {
-        isSeller = seller;
     }
 }

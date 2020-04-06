@@ -1,8 +1,7 @@
 package com.caseStudy.caseStudy.controller;
 
-import com.caseStudy.caseStudy.doa.UserRepositoryClass;
-import com.caseStudy.caseStudy.models.products;
 import com.caseStudy.caseStudy.models.users;
+import com.caseStudy.caseStudy.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,60 +11,51 @@ import java.util.ArrayList;
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping("/api")
-
 public class UserController {
 
     @Autowired
-    UserRepositoryClass userRepositoryClass;
-
-
-    public static Principal principal;
+    UserService userService;
 
     @PostMapping(path = "/user" , consumes="application/json")
-    public boolean signUp(@RequestBody users user)
-    {
+    public boolean signUp(@RequestBody users user) {
         user.setIsActive(1);
-        System.out.println("func called");
-        System.out.println(user.toString()
-        );
-        try{
-            userRepositoryClass.checkUser(user);
-            userRepositoryClass.add(user);
-            return true;
-        }
-        catch (Exception e){
-            System.out.println(e);
-            return false;
-        }
+        System.out.println(user.toString());
+
+        return userService.add(user);
     }
+
     @GetMapping(value = "/validateUser",produces = "application/json")
     public String validateUser(Principal principal)
     {
-
-        this.principal = principal;
-        System.out.println(this.principal);
         return "\"user validated\"";
     }
 
+    @PostMapping(value = "/sendOTP", consumes = "application/json")
+    public String sendOTP(@RequestBody String email){
+        try{
+            return userService.sendOTP(email);
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            return null;
+        }
+    }
 
     @GetMapping(path="/showUser" , produces = "application/json")
     public ArrayList<users> showUsers()
     {
-        return userRepositoryClass.showUser();
+        return userService.showUser();
     }
-
 
     @PostMapping(path="/editUser")
-    public String editUser(@RequestBody users user)
+    public String editUser(@RequestBody users user,Principal principal)
     {
-        return userRepositoryClass.editUser(principal,user);
+        return userService.editUser(principal,user);
     }
 
-
     @PostMapping(path="/deactivateUser")
-    public String deactivateUser(@RequestBody users user)
-    {
-        return userRepositoryClass.deactivateUser(principal,user);
+    public String deactivateUser(@RequestBody users user,Principal principal) {
+        return userService.deactivateUser(principal,user);
     }
 
 }
