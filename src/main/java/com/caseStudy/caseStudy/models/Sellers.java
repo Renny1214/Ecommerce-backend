@@ -18,9 +18,6 @@ public class Sellers {
     private boolean isActive;
     private String address;
 
-    @ManyToOne
-    private products products;
-
     public Long getId() {
         return id;
     }
@@ -83,14 +80,6 @@ public class Sellers {
 
     public void setAddress(String address) {
         this.address = address;
-    }
-
-    public com.caseStudy.caseStudy.models.products getProducts() {
-        return products;
-    }
-
-    public void setProducts(com.caseStudy.caseStudy.models.products products) {
-        this.products = products;
     }
 
     public String getPassword() {

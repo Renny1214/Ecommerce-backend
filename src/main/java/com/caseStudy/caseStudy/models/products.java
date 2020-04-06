@@ -22,8 +22,6 @@ public class products {
     @Column(name  = "productBrand")
     private String brand;
 
-
-
     @Column(name = "productSubCategory")
     private String subcategory;
 
@@ -46,8 +44,8 @@ public class products {
     @Column(name = "productCategory")
     private String category;
 
-
-
+    @OneToOne
+    Sellers sellers;
 
     public Long getProductId() {
         return productId;
@@ -97,6 +95,13 @@ public class products {
         this.category = category;
     }
 
+    public Sellers getSellers() {
+        return sellers;
+    }
+
+    public void setSellers(Sellers sellers) {
+        this.sellers = sellers;
+    }
 
     private boolean isActive;
 
