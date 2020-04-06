@@ -3,6 +3,7 @@ package com.caseStudy.caseStudy.service;
 import com.caseStudy.caseStudy.doa.UserRepository;
 import com.caseStudy.caseStudy.models.users;
 import com.caseStudy.caseStudy.service.generations.OTP;
+import com.caseStudy.caseStudy.service.generations.Password;
 import com.caseStudy.caseStudy.service.resource.manipulation.ResourceManipulation;
 import com.caseStudy.caseStudy.service.threads.MailThread;
 import org.json.JSONObject;
@@ -83,5 +84,23 @@ public class UserService {
         thread.start();
 
         return otp;
+    }
+
+    public void forgotPassword(String emailJSON) throws IOException {
+        MailThread mailThread=new MailThread();
+        JSONObject jsonObject=new JSONObject(emailJSON);
+        final String emailKey="email";
+        final String subject="Little Oak Forgot Password";
+        final String forgotPasswordFile="/forgotPasswordMail.html";
+
+        String email=jsonObject.getString(emailKey);
+        String password=new Password().generatePassword();
+        StringBuilder stringBuilder=ResourceManipulation.getResource(forgotPasswordFile);
+
+        String content=stringBuilder.toString().replace("{}",password);
+        mailThread.setSendingMail(email,subject,content);
+
+        Thread thread=new Thread(mailThread);
+        thread.start();
     }
 }

@@ -26,8 +26,7 @@ public class LoginController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         System.out.println(auth);
 
-        if(auth!=null)
-        {
+        if(auth!=null) {
             new SecurityContextLogoutHandler().logout(request,response,auth);
             request.getSession().invalidate();
         }
@@ -42,6 +41,15 @@ public class LoginController {
         return userService.getByEmail(emailAddress+"@"+emailCompany+"."+emailDomain);
     }
 
-
-
+    @PostMapping(path = "/forgotPassword",consumes = "application/json")
+    public boolean forgotPassword(@RequestBody String emailJSON){
+        try{
+            userService.forgotPassword(emailJSON);
+            return true;
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            return false;
+        }
+    }
 }
