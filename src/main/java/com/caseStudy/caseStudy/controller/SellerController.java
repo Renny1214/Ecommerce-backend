@@ -43,4 +43,9 @@ public class SellerController {
 
         return false;
     }
+
+    @GetMapping(path = "/getSellerInfo", produces = "application/json")
+    public Sellers getInfo(Principal principal){
+        return sellerService.getInfo(principal);
+    }
 }

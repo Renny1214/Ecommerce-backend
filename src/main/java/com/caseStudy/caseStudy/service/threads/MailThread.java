@@ -54,7 +54,7 @@ public class MailThread implements Runnable {
         });
 
         Message message=new MimeMessage(session);
-        message.setFrom(new InternetAddress("rishabhmalhotra091@gmail.com",false));
+        message.setFrom(new InternetAddress(Credentials.getCompanyEmail(),false));
         message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(this.email));
         message.setSubject(subject);
         message.setSentDate(new Date());

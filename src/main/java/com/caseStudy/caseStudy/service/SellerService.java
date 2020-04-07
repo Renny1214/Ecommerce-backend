@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.security.Principal;
+
 @Service
 public class SellerService {
 
@@ -25,6 +27,10 @@ public class SellerService {
         }
 
         return false;
+    }
+
+    public Sellers getInfo(Principal principal){
+        return sellerRepository.findByEmail(principal.getName()).get();
     }
 
 }
