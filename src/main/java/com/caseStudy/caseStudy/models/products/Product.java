@@ -1,7 +1,10 @@
-package com.caseStudy.caseStudy.models;
+package com.caseStudy.caseStudy.models.products;
+
+import com.caseStudy.caseStudy.models.Sellers;
 
 import javax.persistence.*;
 import java.io.File;
+import java.util.List;
 
 @Entity
 public class Product {
@@ -14,24 +17,18 @@ public class Product {
     private String brand;
     private String category;
     private String subcategory;
-    private String color;
     private double stars;
     private int noOfBuyers;
-    private int unitsInStock;
     private String gender;
-    private File image1;
-    private File image2;
-    private File image3;
-    private File image4;
-    private File image5;
-    private String size;
-    private double price;
 
     @Column(length = 1000)
     private String description;
 
     @ManyToOne
     private Sellers sellers;
+
+    @OneToMany(cascade = CascadeType.ALL)
+    private List<PriceColorAndImages> priceColorAndImages;
 
     public Long getId() {
         return id;
@@ -73,22 +70,6 @@ public class Product {
         this.subcategory = subcategory;
     }
 
-    public String getSize() {
-        return size;
-    }
-
-    public void setSize(String size) {
-        this.size = size;
-    }
-
-    public String getColor() {
-        return color;
-    }
-
-    public void setColor(String color) {
-        this.color = color;
-    }
-
     public double getStars() {
         return stars;
     }
@@ -103,54 +84,6 @@ public class Product {
 
     public void setNoOfBuyers(int noOfBuyers) {
         this.noOfBuyers = noOfBuyers;
-    }
-
-    public int getUnitsInStock() {
-        return unitsInStock;
-    }
-
-    public void setUnitsInStock(int unitsInStock) {
-        this.unitsInStock = unitsInStock;
-    }
-
-    public File getImage1() {
-        return image1;
-    }
-
-    public void setImage1(File image1) {
-        this.image1 = image1;
-    }
-
-    public File getImage2() {
-        return image2;
-    }
-
-    public void setImage2(File image2) {
-        this.image2 = image2;
-    }
-
-    public File getImage3() {
-        return image3;
-    }
-
-    public void setImage3(File image3) {
-        this.image3 = image3;
-    }
-
-    public File getImage4() {
-        return image4;
-    }
-
-    public void setImage4(File image4) {
-        this.image4 = image4;
-    }
-
-    public File getImage5() {
-        return image5;
-    }
-
-    public void setImage5(File image5) {
-        this.image5 = image5;
     }
 
     public Sellers getSellers() {
@@ -169,19 +102,19 @@ public class Product {
         this.gender = gender;
     }
 
-    public double getPrice() {
-        return price;
-    }
-
-    public void setPrice(double price) {
-        this.price = price;
-    }
-
     public String getDescription() {
         return description;
     }
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public List<PriceColorAndImages> getPriceColorAndImages() {
+        return priceColorAndImages;
+    }
+
+    public void setPriceColorAndImages(List<PriceColorAndImages> priceColorAndImages) {
+        this.priceColorAndImages = priceColorAndImages;
     }
 }

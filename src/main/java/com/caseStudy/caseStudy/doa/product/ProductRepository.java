@@ -1,6 +1,6 @@
-package com.caseStudy.caseStudy.doa;
+package com.caseStudy.caseStudy.doa.product;
 
-import com.caseStudy.caseStudy.models.Product;
+import com.caseStudy.caseStudy.models.products.Product;
 import com.caseStudy.caseStudy.models.Sellers;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;

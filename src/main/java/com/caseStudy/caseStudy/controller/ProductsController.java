@@ -1,12 +1,11 @@
 package com.caseStudy.caseStudy.controller;
 
-import com.caseStudy.caseStudy.models.Product;
+import com.caseStudy.caseStudy.models.products.Product;
 import com.caseStudy.caseStudy.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
-import java.util.ArrayList;
 
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
@@ -17,18 +16,15 @@ public class ProductsController {
     ProductService productService;
 
     @PostMapping(path = "/addProducts" , produces="application/json")
-    public boolean addProduct(@RequestBody String productJSON, Principal principal) {
+    public boolean addProduct(@RequestBody Product productJSON, Principal principal) {
         return productService.addProduct(productJSON,principal);
     }
 
-    @GetMapping(path="/id/{name}/{brand}/{sellerId}")
-    public String getId(@PathVariable("name") String name,
-                        @PathVariable("brand") String brand,
-                        @PathVariable("sellerId") Long sellerId)
-    {
-        return productService.getProduct(name,brand,sellerId);
+    @GetMapping(path="/id/{id}")
+    public Product getId(@PathVariable Long id) {
+        return productService.getProduct(id);
     }
-//
+
 //    @GetMapping(path="/category/{category}")
 //    public ArrayList<products> getCategory(@PathVariable("category") String productCategory)
 //    {
