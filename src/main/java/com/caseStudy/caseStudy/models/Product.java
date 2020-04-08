@@ -25,6 +25,10 @@ public class Product {
     private File image4;
     private File image5;
     private String size;
+    private double price;
+
+    @Column(length = 1000)
+    private String description;
 
     @ManyToOne
     private Sellers sellers;
@@ -163,5 +167,21 @@ public class Product {
 
     public void setGender(String gender) {
         this.gender = gender;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

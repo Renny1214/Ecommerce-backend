@@ -1,10 +1,12 @@
 package com.caseStudy.caseStudy.controller;
 
+import com.caseStudy.caseStudy.models.Product;
 import com.caseStudy.caseStudy.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
+import java.util.ArrayList;
 
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
@@ -19,18 +21,13 @@ public class ProductsController {
         return productService.addProduct(productJSON,principal);
     }
 
-//    @GetMapping(path="/showProducts" , produces = "application/json")
-//    public ArrayList<products> showProducts()
-//    {
-//        return productService.showProducts();
-//    }
-//
-//    @GetMapping(path="/id/{id}")
-//    public Optional<products> getId(
-//                      @PathVariable("id") Long productId)
-//    {
-//        return productService.getIdInformation(productId);
-//    }
+    @GetMapping(path="/id/{name}/{brand}/{sellerId}")
+    public String getId(@PathVariable("name") String name,
+                        @PathVariable("brand") String brand,
+                        @PathVariable("sellerId") Long sellerId)
+    {
+        return productService.getProduct(name,brand,sellerId);
+    }
 //
 //    @GetMapping(path="/category/{category}")
 //    public ArrayList<products> getCategory(@PathVariable("category") String productCategory)
