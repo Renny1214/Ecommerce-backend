@@ -2,7 +2,6 @@ package com.caseStudy.caseStudy.controller;
 
 
 import com.caseStudy.caseStudy.models.history;
-import com.caseStudy.caseStudy.service.HistoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,19 +13,19 @@ import java.util.ArrayList;
 @RequestMapping()
 public class historyController {
 
-    @Autowired
-    HistoryService historyService;
-
-    @GetMapping(path="/history")
-    public ArrayList<history> getHistory(Principal principal)
-    {
-        return historyService. getHistoryFromCurrentUser(principal);
-    }
-
-    @GetMapping(path="/history/addHistory")
-    public String addHistoryToList(Principal principal)
-    {
-        System.out.println();
-        return historyService.addListToHistory(principal);
-    }
+//    @Autowired
+//    HistoryService historyService;
+//
+//    @GetMapping(path="/history")
+//    public ArrayList<history> getHistory(Principal principal)
+//    {
+//        return historyService. getHistoryFromCurrentUser(principal);
+//    }
+//
+//    @GetMapping(path="/history/addHistory")
+//    public String addHistoryToList(Principal principal)
+//    {
+//        System.out.println();
+//        return historyService.addListToHistory(principal);
+//    }
 }

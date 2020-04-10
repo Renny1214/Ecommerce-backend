@@ -16,7 +16,7 @@ public class UserController {
     @Autowired
     UserService userService;
 
-    @PostMapping(path = "/user" , consumes="application/json")
+    @PostMapping(path = "/user")
     public boolean signUp(@RequestBody users user) {
         user.setIsActive(1);
         System.out.println(user.toString());
