@@ -40,21 +40,21 @@ public class ProductService {
     }
 
     public ArrayList<Product> getCategoryInformation(String category){
-        return productRepository.findAllByCategoryIgnoreCase(category);
+        return productRepository.findAllByCategory(category);
     }
 
     public ArrayList<Product> getSubCategoryInformation(String category,String subCategory){
-        return productRepository.findAllByCategoryAndSubcategoryIgnoreCase(category,subCategory);
+        return productRepository.findAllByCategoryAndSubcategory(category,subCategory);
     }
 
     public ArrayList<Product> getByCategoryAndPrice(String category,double price1,double price2){
-        return productRepository.getByCategoryAndPriceCustomIgnoreCase(category,
+        return productRepository.getByCategoryAndPriceCustom(category,
                 Math.min(price1,price2),
                 Math.max(price1,price2));
     }
 
     public ArrayList<Product> getBySubcategoryAndPriceBetween(String subcategory,double price1,double price2){
-        return productRepository.getBySubcategoryAndPriceCustomIgnoreCase(subcategory,
+        return productRepository.getBySubcategoryAndPriceCustom(subcategory,
                 Math.min(price1,price2),
                 Math.max(price1,price2));
     }
@@ -84,14 +84,7 @@ public class ProductService {
     }
 
     public Set<Product> getItemFromSearch(String search){
-        Set<Product> result=new HashSet<>();
         SearchService searchService=new SearchService();
-        String[] words=search.split(" ");
-
-        for(int i=0;i<words.length;i++){
-            result.addAll(searchService.search(words[i]));
-        }
-
-        return result;
+        return searchService.searchRoot(search,productRepository);
     }
 }

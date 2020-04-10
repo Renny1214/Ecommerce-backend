@@ -1,5 +1,6 @@
 package com.caseStudy.caseStudy;
 
+import com.caseStudy.caseStudy.doa.product.ProductRepository;
 import com.caseStudy.caseStudy.models.products.Product;
 import com.caseStudy.caseStudy.service.ProductService;
 import com.caseStudy.caseStudy.service.generations.OTP;
@@ -7,6 +8,7 @@ import org.apache.tomcat.util.codec.binary.Base64;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -21,6 +23,9 @@ import static org.junit.Assert.*;
 
 
 public class UnitTest {
+
+    @Autowired
+    ProductRepository productRepository;
 
     @Test
     public void testOTP(){
@@ -116,17 +121,7 @@ public class UnitTest {
     }
 
     @Test
-    public void searchTest(){
-        ProductService productService=new ProductService();
-        Set<Product> set=productService.getItemFromSearch("Nike");
-
-        System.err.println("Search Length : "+set.size());
-
-        Iterator<Product> iterator=set.iterator();
-        while (iterator.hasNext()){
-            Product product=iterator.next();
-
-            System.err.println(product.getName()+"\t"+product.getBrand());
-        }
+    public void getBrandTest(){
+        System.out.println(productRepository.findAllByCategory("Shoes"));
     }
 }
