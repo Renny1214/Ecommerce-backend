@@ -71,7 +71,7 @@ public class ProductsController {
         return productService.getItemFromSearch(value);
     }
 
-    @PostMapping(path="/image")
+    @PostMapping(path="/uploadImage")
     public String uploadImage(@RequestParam("imageFile") MultipartFile file,Principal principal){
         try {
             return productService.uploadImage(file,principal);
