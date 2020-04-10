@@ -3,8 +3,12 @@ package com.caseStudy.caseStudy.controller;
 import com.caseStudy.caseStudy.models.products.Product;
 import com.caseStudy.caseStudy.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.Set;
@@ -65,6 +69,23 @@ public class ProductsController {
     @GetMapping(path="/search/{value}")
     public Set<Product> search(@PathVariable("value") String value) {
         return productService.getItemFromSearch(value);
+    }
+
+    @PostMapping(path="/image")
+    public String uploadImage(@RequestParam("imageFile") MultipartFile file,Principal principal){
+        try {
+            return productService.uploadImage(file,principal);
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+    @GetMapping(path = "/getImage/{name}")
+    public ResponseEntity<Resource> getImage(@PathVariable("name") String name){
+        return productService.getImage(name);
     }
 }
 
