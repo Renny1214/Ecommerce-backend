@@ -38,6 +38,8 @@ public class SecurityConfiguration{
         protected void configure(HttpSecurity http) throws Exception{
             http.csrf().disable()
                     .authorizeRequests().antMatchers(HttpMethod.OPTIONS,"/**").permitAll()
+                    .antMatchers("/api/user").permitAll()
+                    .antMatchers("/api/**").permitAll()
                     .antMatchers("/products").permitAll()
                     .antMatchers("/products/**").permitAll()
                     .antMatchers("/products/addProducts").permitAll()
