@@ -21,6 +21,7 @@ public class SellerService {
         if(!sellerRepository.findByEmail(sellers.getEmail()).isPresent()){
             sellers.setActive(true);
             sellers.setPassword(passwordEncoder.encode(sellers.getPassword()));
+            sellers.setSalesMade(0);
 
             sellerRepository.save(sellers);
             return true;

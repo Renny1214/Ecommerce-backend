@@ -3,7 +3,7 @@ package com.caseStudy.caseStudy.models;
 import javax.persistence.*;
 
 @Entity
-public class Sellers {
+public class Maintainers {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -11,13 +11,11 @@ public class Sellers {
 
     private String firstName;
     private String lastName;
-    private String mobile;
     private String email;
-    private String gstNo;
     private String password;
-    private boolean isActive;
-    private String address;
-    private double salesMade;
+
+    @Column(length = 10)
+    private String mobile;
 
     public Long getId() {
         return id;
@@ -43,44 +41,12 @@ public class Sellers {
         this.lastName = lastName;
     }
 
-    public String getMobile() {
-        return mobile;
-    }
-
-    public void setMobile(String mobile) {
-        this.mobile = mobile;
-    }
-
     public String getEmail() {
         return email;
     }
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public String getGstNo() {
-        return gstNo;
-    }
-
-    public void setGstNo(String gstNo) {
-        this.gstNo = gstNo;
-    }
-
-    public boolean isActive() {
-        return isActive;
-    }
-
-    public void setActive(boolean active) {
-        isActive = active;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
     }
 
     public String getPassword() {
@@ -91,11 +57,11 @@ public class Sellers {
         this.password = password;
     }
 
-    public double getSalesMade() {
-        return salesMade;
+    public String getMobile() {
+        return mobile;
     }
 
-    public void setSalesMade(double salesMade) {
-        this.salesMade = salesMade;
+    public void setMobile(String mobile) {
+        this.mobile = mobile;
     }
 }
