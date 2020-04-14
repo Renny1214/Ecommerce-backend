@@ -28,7 +28,14 @@ public class SellerController {
 
     @PostMapping(path = "/signUp", consumes = "application/json")
     public String signUp(@RequestBody Sellers sellers){
-        return sellerService.signUp(sellers)+"";
+        try{
+            return sellerService.signUp(sellers)+"";
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+
+        return null;
     }
 
     @GetMapping(path = "/logout")
