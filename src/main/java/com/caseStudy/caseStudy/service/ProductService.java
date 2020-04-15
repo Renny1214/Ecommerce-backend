@@ -36,7 +36,7 @@ public class ProductService {
     public boolean addProduct(Product product, Principal principal){
         Optional<Sellers> sellers=sellerRepository.findByEmail(principal.getName());
 
-        if(sellers.isPresent()){
+        if(sellers.isPresent() && sellers.get().getStatus().equals("approved")){
             product.setNoOfBuyers(0);
             product.setStars(0);
             product.setSellers(sellers.get());
@@ -100,7 +100,9 @@ public class ProductService {
     public boolean deleteProduct(Long id,Principal principal){
         Optional<Sellers> sellers=sellerRepository.findByEmail(principal.getName());
 
-        if(sellers.isPresent()){
+        if(sellers.isPresent()
+                && sellers.get().getStatus().equals("approved")
+                && productRepository.findById(id).get().getSellers().getEmail().equals(sellers.get().getEmail())){
             productRepository.deleteById(id);
 
             return true;
@@ -112,7 +114,7 @@ public class ProductService {
     public boolean editProduct(Product product,Principal principal){
         Optional<Sellers> sellers=sellerRepository.findByEmail(principal.getName());
 
-        if(sellers.isPresent()){
+        if(sellers.isPresent() && sellers.get().getStatus().equals("approved")){
             productRepository.save(product);
 
             return true;

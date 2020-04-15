@@ -17,6 +17,8 @@ public class Sellers {
     private String password;
     private boolean isActive;
     private String address;
+    private double salesMade;
+    private String status;
 
     public Long getId() {
         return id;
@@ -88,5 +90,21 @@ public class Sellers {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public double getSalesMade() {
+        return salesMade;
+    }
+
+    public void setSalesMade(double salesMade) {
+        this.salesMade = salesMade;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }

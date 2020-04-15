@@ -19,7 +19,6 @@ public class LoginController {
     @Autowired
     UserService userService;
 
-
     @RequestMapping(value="/logout",method = RequestMethod.GET)
     public String logout(HttpServletRequest request , HttpServletResponse response)
     {

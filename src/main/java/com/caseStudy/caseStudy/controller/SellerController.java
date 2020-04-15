@@ -28,7 +28,14 @@ public class SellerController {
 
     @PostMapping(path = "/signUp", consumes = "application/json")
     public String signUp(@RequestBody Sellers sellers){
-        return sellerService.signUp(sellers)+"";
+        try{
+            return sellerService.signUp(sellers)+"";
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+
+        return null;
     }
 
     @GetMapping(path = "/logout")
@@ -47,5 +54,17 @@ public class SellerController {
     @GetMapping(path = "/getSellerInfo", produces = "application/json")
     public Sellers getInfo(Principal principal){
         return sellerService.getInfo(principal);
+    }
+
+    @PostMapping(path = "/sendOTP",consumes = "application/json")
+    public String sendOTP(@RequestBody String emailJSON){
+        try{
+            return sellerService.sendOTP(emailJSON);
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+
+        return null;
     }
 }
