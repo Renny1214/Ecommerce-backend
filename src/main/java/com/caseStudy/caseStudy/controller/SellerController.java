@@ -55,4 +55,16 @@ public class SellerController {
     public Sellers getInfo(Principal principal){
         return sellerService.getInfo(principal);
     }
+
+    @PostMapping(path = "/sendOTP",consumes = "application/json")
+    public String sendOTP(@RequestBody String emailJSON){
+        try{
+            return sellerService.sendOTP(emailJSON);
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+
+        return null;
+    }
 }

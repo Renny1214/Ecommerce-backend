@@ -53,4 +53,26 @@ public class MaintainersController {
         }
         return "\"logout successful\"";
     }
+
+    @GetMapping(path = "/getRequests",produces = "application/json")
+    public List<Sellers> getRequests(Principal principal){
+        return maintainerService.getRequests(principal);
+    }
+
+    @GetMapping(path = "/acceptRequest/{sellerId}")
+    public boolean acceptRequest(@PathVariable Long sellerId,Principal principal){
+        try{
+            return maintainerService.acceptRequest(principal,sellerId);
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+
+        return false;
+    }
+
+    @GetMapping(path = "/rejectRequest/{sellerId}")
+    public boolean rejectRequest(@PathVariable Long sellerId,Principal principal){
+        return maintainerService.rejectRequest(principal,sellerId);
+    }
 }

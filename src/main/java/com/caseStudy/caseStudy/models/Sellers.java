@@ -18,6 +18,7 @@ public class Sellers {
     private boolean isActive;
     private String address;
     private double salesMade;
+    private String status;
 
     public Long getId() {
         return id;
@@ -97,5 +98,13 @@ public class Sellers {
 
     public void setSalesMade(double salesMade) {
         this.salesMade = salesMade;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }
